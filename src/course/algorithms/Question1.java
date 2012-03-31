@@ -25,7 +25,73 @@ public class Question1 {
     int[] array = getArray();
     System.out.println(inversions(array, 0, array.length));
   }
-  
+
+  /**
+   * @param array
+   * @param begin
+   * @param end
+   * @return the number of inversions in the given interval
+   */
+  private static long inversions(int[] array, int begin, int end) {
+    // end condition
+    if (end - begin < 2) {
+      return 0;
+    }
+    int mid = (begin + end) / 2;
+    // total inversions = left inversions + right inversions + split inversions
+    return
+        inversions(array, begin, mid) +
+        inversions(array, mid, end) +
+        splitInversions(array, begin, mid, end);
+  }
+
+  /**
+   * The following method merges the given array intervals:
+   *   Interval 1: begin-mid
+   *   Interval 2: mid-end
+   * It also counts for the number of split inversions in the two intervals.
+   * @param array
+   * @param begin
+   * @param mid
+   * @param end
+   * @return the number of split inversions in the given interval
+   */
+  private static long splitInversions(int[] array, int begin, int mid, int end) {
+    // array used for copying merged values
+    int[] copy = new int[end - begin];
+    // left interval pointer
+    int i = begin;
+    // right interval pointer
+    int j = mid;
+    // copy array pointer
+    int k = 0;
+    long splitInversions = 0;
+    while (i < mid && j < end) {
+      // copying the smaller element into the temporal array
+      if (array[i] < array[j]) {
+        copy[k++] = array[i++];
+      } else {
+        copy[k++] = array[j++];
+        // if the smaller element was in the right interval we account for the
+        // respective inversions
+        splitInversions += mid - i;
+      }
+    }
+    // remaining elements in the left interval are copied to the temporal array 
+    while (i < mid) {
+      copy[k++] = array[i++];
+    }
+    // remaining elements in the right interval are copied to the temporal array 
+    while (j < end) {
+      copy[k++] = array[j++];
+    }
+    // original array gets updated
+    while (0 < k--) {
+      array[begin + k] = copy[k];
+    }
+    return splitInversions;
+  }
+
   private static int[] getArray() throws FileNotFoundException {
     int[] array = new int[100000];
     Scanner in = new Scanner(new File("src/course/algorithms/IntegerArray.txt"));
@@ -33,39 +99,5 @@ public class Question1 {
       array[i] = in.nextInt();
     }
     return array;
-  }
-
-  private static long inversions(int[] array, int begin, int end) {
-    if (end - begin < 2) {
-      return 0;
-    }
-    int mid = (begin + end) / 2;
-    return inversions(array, begin, mid) + inversions(array, mid, end) + splitInversions(array, begin, mid, end);
-  }
-  
-  private static long splitInversions(int[] array, int begin, int mid, int end) {
-    int[] copy = new int[end - begin];
-    int i = begin;
-    int j = mid;
-    int k = 0;
-    long splitInversions = 0;
-    while (i < mid && j < end) {
-      if (array[i] < array[j]) {
-        copy[k++] = array[i++];
-      } else {
-        splitInversions += mid - i;
-        copy[k++] = array[j++];
-      }
-    }
-    while (i < mid) {
-      copy[k++] = array[i++];
-    }
-    while (j < end) {
-      copy[k++] = array[j++];
-    }
-    while (0 < k--) {
-      array[begin + k] = copy[k];
-    }
-    return splitInversions;
   }
 }
