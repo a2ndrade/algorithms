@@ -18,7 +18,7 @@ public class Problem2 {
 
 	/**
 	 * Ternary Search
-	 * Based in: http://en.wikipedia.org/wiki/Ternary_search
+	 * Based on: http://en.wikipedia.org/wiki/Ternary_search
 	 * Complexity: O(log(n))
 	 * 
 	 * @param array

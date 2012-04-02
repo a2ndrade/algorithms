@@ -27,6 +27,10 @@ public class Question1 {
   }
 
   /**
+   * Counting Inversions
+   * Based on: Merge-Sort
+   * Complexity: O(n log(n))
+   * 
    * @param array
    * @param begin
    * @param end
@@ -93,11 +97,15 @@ public class Question1 {
   }
 
   private static int[] getArray() throws FileNotFoundException {
-    int[] array = new int[100000];
-    Scanner in = new Scanner(new File("src/course/algorithms/IntegerArray.txt"));
-    for (int i = 0; i < 100000; i++) {
-      array[i] = in.nextInt();
+    Scanner in = new Scanner(new File("src/course/algorithms/week1/IntegerArray.txt"));
+    try {
+      int[] array = new int[10000];
+      for (int i = 0; i < 10000; i++) {
+        array[i] = in.nextInt();
+      }
+      return array;
+    } finally {
+      in.close();
     }
-    return array;
   }
 }
