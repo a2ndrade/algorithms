@@ -1,4 +1,4 @@
-package course.algorithms;
+package course.algorithms.week1;
 
 import java.io.File;
 import java.io.FileNotFoundException;
