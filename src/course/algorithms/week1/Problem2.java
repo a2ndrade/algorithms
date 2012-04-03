@@ -11,25 +11,26 @@ import java.util.Random;
  */
 public class Problem2 {
 
-	public static void main(String[] args) {
+  public static void main(String[] args) {
     int[] array = getArray();
     System.out.println(ternarySearch(array, 0, array.length));
-	}
+  }
 
-	/**
-	 * Ternary Search
-	 * Based on: http://en.wikipedia.org/wiki/Ternary_search
-	 * Complexity: O(log(n))
-	 * 
-	 * @param array
-	 * @param begin
-	 * @param end
-	 * @return the maximum value in the given array interval
-	 */
-	private static int ternarySearch(int[] array, int begin, int end) {
-	  if (end - begin < 2) {
-	    return array[begin];
-	  }
+  /**
+   * Ternary Search
+   * Based on: http://en.wikipedia.org/wiki/Ternary_search
+   * Complexity: O(log(n))
+   * 
+   * @param array
+   * @param begin
+   * @param end
+   * @return the maximum value in the given array interval
+   */
+  private static int ternarySearch(int[] array, int begin, int end) {
+    // End condition
+    if (end - begin < 2) {
+      return array[begin];
+    }
     int oneThird = (end + begin + begin) / 3;
     int twoThirds = (end + end + begin) / 3;
     if (array[oneThird] < array[twoThirds]) {

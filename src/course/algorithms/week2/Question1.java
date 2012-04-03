@@ -71,15 +71,15 @@ public class Question1 {
    *         calls
    */
   private static int quickSort(int[] array, int begin, int end, PivotPicker picker) {
-    // end condition
+    // End condition
     if (end - begin < 2) {
       return 0;
     }
-    // the picker chooses an element as the pivot and places it to the front
+    // The picker chooses an element as the pivot and places it to the front
     picker.moveToFront(array, begin, end);
-    // the array is partitioned using the first element as the pivot
+    // The array is partitioned using the first element as the pivot
     int pivotPosition = partition(array, begin, end);
-    // the only remaining task is to sort the left and right intervals
+    // The only remaining task is to sort the left and right intervals
     return end - begin - 1 + quickSort(array, begin, pivotPosition, picker) + quickSort(array, pivotPosition + 1, end, picker);
   }
 
@@ -101,7 +101,7 @@ public class Question1 {
   private static class FirstElementPivotPicker implements PivotPicker {
     @Override
     public void moveToFront(int[] array, int begin, int end) {
-      // pivot is already the first element of the array interval
+      // Pivot is already the first element of the array interval
     }
   }
   /**
@@ -110,7 +110,7 @@ public class Question1 {
   private static class LastElementPivotPicker implements PivotPicker {
     @Override
     public void moveToFront(int[] array, int begin, int end) {
-      // moving the last element to the front
+      // Moving the last element to the front
       int temp = array[begin];
       array[begin] = array[end - 1];
       array[end - 1] = temp;
@@ -124,25 +124,25 @@ public class Question1 {
     @Override
     public void moveToFront(int[] array, int begin, int end) {
       int median;
-      int middle = (begin + end - 1) / 2;
-      if (array[begin] < array[middle]) {
-        if (array[middle] < array[end - 1]) {
-          median = middle;
+      int mid = (begin + end - 1) / 2;
+      if (array[begin] < array[mid]) {
+        if (array[mid] < array[end - 1]) {
+          median = mid;
         } else if (array[begin] < array[end - 1]) {
           median = end - 1;
         } else {
           median = begin;
         }
       } else {
-        if (array[end - 1] < array[middle]) {
-          median = middle;
+        if (array[end - 1] < array[mid]) {
+          median = mid;
         } else if (array[end - 1] < array[begin]) {
           median = end -1;
         } else {
           median = begin;
         }
       }
-      // moving the median element to the front
+      // Moving the median element to the front
       int temp = array[begin];
       array[begin] = array[median];
       array[median] = temp;
@@ -152,9 +152,9 @@ public class Question1 {
   private static int partition(int[] array, int begin, int end) {
     int pivot = array[begin];
     int pivotPosition = begin;
-    // sweeping the array interval to determine the pivot position
+    // Sweeping the array interval to determine the pivot position
     for (int i = pivotPosition + 1; i < end; i++) {
-      // as we sweep we also maintain the state of the traversed section
+      // As we sweep we also maintain the state of the traversed section
       // by moving elements smaller than the pivot to the front section
       if (array[i] < pivot) {
         int temp = array[pivotPosition + 1];
